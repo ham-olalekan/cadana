@@ -39,6 +39,7 @@ func exchangeRateHandler(w http.ResponseWriter, r *http.Request) {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		//call service A
 		tempRate := GetExchangeRateFromServiceA(request.CurrencyPair)
 		once.Do(func() {
 			rate = tempRate
@@ -46,6 +47,7 @@ func exchangeRateHandler(w http.ResponseWriter, r *http.Request) {
 	}()
 	go func() {
 		defer wg.Done()
+		//call service B
 		tempRate := GetExchangeRateFromServiceB(request.CurrencyPair)
 		once.Do(func() {
 			rate = tempRate
